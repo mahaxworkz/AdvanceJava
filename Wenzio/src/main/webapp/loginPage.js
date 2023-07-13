@@ -64,7 +64,7 @@
 		{				                            
                alert('Thank You for Login &'+name+'  welcome to WENZIO!!');
 			   // Redirecting to other page or webste code. 
-			   window.location = "http://localhost:8080/Wenzio/index.html "; 
+			 window.location = "http://localhost:8080/Wenzio/index.html "; 
 		}
 	}
 	function clearFunc()

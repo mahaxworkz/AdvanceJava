@@ -1,5 +1,6 @@
 package com.xworkz.wenzio.service;
 
+import java.sql.ResultSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -33,6 +34,13 @@ public class WenserviceImpl implements WenService  {
 		
 		
 		return false;
+	}
+
+	@Override
+	public ResultSet finding(wenzioDto dto, String mail) throws Exception {
+		 ResultSet  find = repo.FindbyMail(dto, mail);
+		 System.out.println(find);
+		return null;
 	}
 
 }

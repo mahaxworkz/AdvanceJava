@@ -2,6 +2,7 @@ package com.xworkz.wenzio;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
  
@@ -19,7 +20,7 @@ public class WenzioServlet  extends HttpServlet{
 	wenzioDto wenzio= new wenzioDto();
 	WenService service= new WenserviceImpl() ; 
 	 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		
 		 String name= req.getParameter("name" );
 		String number = req.getParameter("number");
@@ -42,20 +43,28 @@ public class WenzioServlet  extends HttpServlet{
 		wenzio.setPickup(pickup);
 		wenzio.setTime(time);
 		wenzio.setVehicle(vehicle);
-		 try {
-			service.saving(wenzio);
+		
+		resp.setContentType( "text/HTML");
+		 PrintWriter writer= resp.getWriter();
+			 
+		try {
+			//service.saving(wenzio);
+		ResultSet	find = service.finding(wenzio, email);
+		writer.println(find);
+		 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		resp.setContentType( "text/HTML");
-		 PrintWriter writer= resp.getWriter();
+		
+		 
+		 
+		
 		 writer.println("<h1><center>information</center></h1>");
 			writer.println("<h1>welcome to Wenzio!! "+name+"!!<h1><br>");
 			 
 			 
-			writer.println (wenzio);
-	
+			 
 	}
 	
 	
