@@ -43,21 +43,8 @@ public class TotserviceImpl implements Toyservice {
 			return false;
 		
 	}
-	@Override
-	public ToyFactorydto FindByID(String owner) {
-		if( owner!=null) {
-			return repo.FindByName(owner);
-		}
-		return null;
-	}
-	@Override
-	public ToyFactorydto FindByyear( int year) {
-		 if(year>1900) {
-			 return repo.FindByyear(year);
-			 
-		 }
-		return null;
-	}
+	 
+	 
 	@Override
 	public boolean Updateprofitbyname(String owner, int profit) {
 		 if(owner!=null) {
@@ -70,55 +57,32 @@ public class TotserviceImpl implements Toyservice {
 		 System.out.println(" ownername is not valid");
 		return false;
 	}
-	@Override
-	public boolean updateFactoryAndProfitbyName(String owner, int profit, String factory) {
-		 if(owner!=null) {
-			 if(profit>30) { 
-				 if(factory !=null) {
-					 return repo.updateFactoryAndProfitbyName(owner, profit, factory);
-				 }
-				 System.out.println("factory name is not valid");
-				 return false;
-			 }
-			 System.out.println("profit is not valid");
-			 return false;
-		 }
-		 System.out.println(" ownername is not valid");
-		return false;
 	 
-	}
-	@Override
-	public boolean updateFactoryAndProfitAndOwnerbyYear(String owner, int profit, String factory, int year) {
-		if(owner!=null) {
-			 if(profit>30) { 
-				 if(year>1900) {
-				 if(factory !=null) {
-					 return repo.updateFactoryAndProfitAndOwnerbyYear(owner, profit, factory, year);
-				 }
-				 System.out.println("factory name is not valid");
-				 return false;
-			 }
-				 System.out.println( "year is not valid");
-			 return false;
-				 
-			 }
-			 System.out.println("profit is not valid");
-			 return false;
-		 }
-		 System.out.println(" ownername is not valid");
-		 return false;
-	}
-	@Override
-	public boolean deleteByname(String owner) {
-		 if(owner != null) {
-			 return repo.deleteByname(owner);
-		 }
-		return false;
-	}
-	@Override
+	 
+	 
 	public List<ToyFactorydto> readAll() {
 		
 		return repo.readAll();
+	}
+	@Override
+	public ToyFactorydto FindByname(String owner) {
+		// TODO Auto-generated method stub
+		return repo.FindByName(owner);
+	}
+	@Override
+	public ToyFactorydto FindByid(int id) {
+		
+		return repo.FindByid(id);
+	}
+	@Override
+	public boolean updateFactorybyNameandid(String owner, int id, String factory) {
+		 
+		return repo.updateFactorybyNameandid(owner, id, factory);
+	}
+	@Override
+	public boolean deleteByid(int id) {
+		 
+		return repo.deleteByid(id);
 	}
 	
 	

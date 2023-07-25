@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+ 
 import com.xworkz.toyfactory.config.Toyconfig;
 import com.xworkz.toyfactory.dto.ToyFactorydto;
 
@@ -25,6 +26,16 @@ public class ToyfactoryRepoImpl  implements ToyRepo {
 	 
 		return false;
 	}
+	@Override
+	public ToyFactorydto FindByid(int id) {
+		 
+			 Session session = sessionFactory.openSession();
+			 ToyFactorydto  readvaluse = session.get(  ToyFactorydto.class, id);
+			 
+			return readvaluse;
+		
+		 
+	}
 
 	@Override
 	public  ToyFactorydto FindByName(String owner) {
@@ -37,14 +48,7 @@ public class ToyfactoryRepoImpl  implements ToyRepo {
 		return  result;
 	}
 
-	@Override
-	public ToyFactorydto FindByyear(int year) {
-		Session session=sessionFactory.openSession();
-		String query="from  ToyFactorydto where year= "+year;
-		Query<ToyFactorydto> readbyyear=session.createQuery(query,ToyFactorydto.class);
-		ToyFactorydto result=	readbyyear.getSingleResult();
-		return result;
-	}
+	 
 
 	@Override
 	public boolean Updateprofitbyname(String owner, int profit) {
@@ -64,34 +68,9 @@ public class ToyfactoryRepoImpl  implements ToyRepo {
 		return true;
 	}
 
-	@Override
-	public boolean updateFactoryAndProfitbyName(String owner, int profit, String factory) {
-		ToyFactorydto values=FindByName(owner);
-		Session session=sessionFactory.openSession();
-		 Transaction tran = session.beginTransaction();
-			 values.setProfit(profit);
-			 values.setFactoryName(factory);
-			session.update(values );
-		  
-		 tran.commit();
-		 session.close();
-		return  true;
-	}
+	 
 
-	@Override
-	public boolean updateFactoryAndProfitAndOwnerbyYear(String owner, int profit, String factory, int year) {
-		ToyFactorydto value= FindByyear(year);
-		Session session=sessionFactory.openSession();
-		 Transaction tran = session.beginTransaction();
-			 value.setProfit(profit);
-			 value.setFactoryName(factory);
-			 value.setOwner(owner);
-			 session.update(value );
-			  
-			 tran.commit();
-			 session.close();
-		return false;
-	}
+	 
 
 	@Override
 	public  List<ToyFactorydto>  readAll() {
@@ -101,17 +80,37 @@ public class ToyfactoryRepoImpl  implements ToyRepo {
 		return  listing;
 	}
 
+	 
+
+	
+
 	@Override
-	public boolean deleteByname(String owner) {
-		ToyFactorydto values=FindByName(owner);
+	public boolean updateFactorybyNameandid(String owner, int id, String factory) {
+		
+		Session session=sessionFactory.openSession();ToyFactorydto values=FindByid(id);
+		ToyFactorydto values2=FindByid(id);
+		 Transaction tran = session.beginTransaction();
+		if(values.getId()==values2.getId()) {
+			values.setFactoryName(factory);
+			session.update(values);
+			tran.commit();
+			 session.close();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean deleteByid(int id) {
 		Session session=sessionFactory.openSession();
 		 Transaction tran = session.beginTransaction();
+		 ToyFactorydto values=FindByid(id);
 			 session.delete(values);
 			 
 		  
 		 tran.commit();
 		 session.close();
-		return true;
+		return false;
 	}
 	
 	
